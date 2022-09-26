@@ -1,0 +1,29 @@
+@use "../abstracts/type-styles";
+@use "../abstracts/variables";
+
+body {
+    background-color: var(--c-background);
+    color: var(--c-primary);
+
+    @extend %description;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+figure,
+blockquote,
+cite {
+    // margin: 0;
+}
+
+img {
+    // width: 100%;
+}
+
+// a {
+//     color: var(--c-primary);
+// }

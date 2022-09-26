@@ -1,0 +1,105 @@
+@use "../abstracts/variables";
+@use "../abstracts/type-styles";
+@use "../utilities/mixins";
+
+.footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: var(--s-m) var(--s-l);
+    padding-top: var(--s-l);
+    z-index: 100;
+    box-sizing: border-box;
+    border-top: 1px solid var(--c-secondary);
+
+    &.inverted {
+    }
+
+    &.no-padding {
+        margin-top: 0;
+        border-top: none;
+    }
+}
+
+.footer__column {
+    flex-basis: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: var(--s-s);
+    box-sizing: border-box;
+    padding-right: var(--s-xs);
+    // @extend %info-detail;
+
+    @include mixins.respond-above(variables.$break-s) {
+        flex-basis: calc(100% / 2);
+    }
+
+    @include mixins.respond-above(variables.$break-m) {
+        flex-basis: calc(100% / 4);
+    }
+
+    p {
+        color: var(--c-secondary);
+        margin: 0;
+        @extend %info-detail;
+    }
+}
+
+.footer__item {
+    flex-basis: 100%;
+}
+
+p.footer__social-icons {
+    margin-top: var(--s-xs);
+
+    .footer__link {
+        margin-right: var(--s-xs);
+        text-decoration: none;
+    }
+}
+
+.footer__link {
+    // @extend %inline-link;
+    color: var(--c-secondary);
+    text-decoration: none;
+
+    &:hover {
+        color: var(--c-primary);
+
+        path,
+        circle {
+            fill: var(--c-primary);
+        }
+    }
+
+    &[target="_blank"] {
+        // @extend %external-link;
+    }
+
+    svg {
+        width: var(--s-m);
+        height: auto;
+    }
+
+    path,
+    circle {
+        fill: var(--c-secondary);
+        transition: fill 0.2s ease;
+    }
+}
+
+.footer__copyright {
+    flex-basis: 100%;
+    text-align: left;
+    margin-top: var(--s-l);
+
+    @include mixins.respond-above(variables.$break-s) {
+        text-align: center;
+    }
+
+    p {
+        max-width: 100%;
+        color: var(--c-secondary);
+        @extend %info-detail;
+    }
+}

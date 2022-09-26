@@ -1,0 +1,33 @@
+{% extends "base.twig" %}
+
+{% set page_class = "people" %}
+
+{% block content %}
+	<section class="partners">
+		<h2 class="page__subtitle partners__title">{{ page.team_title }}</h2>
+		<div class="page__description partners__description">{{ page.meta('team_description') }}</div>
+		<section class="partners__grid">
+			{% for person in Post(page.team_list) %}
+				<article class="partner">
+					<figure class="partner__image">
+						<img class="lazyload" src="{{ Image(person.headshot).src|resize(300) }}" alt="{{ Image(person.headshot).alt }}" data-src="{{ Image(person.headshot).src|resize(800) }}" data-srcset="{{ Image(person.headshot).srcset }}" data-sizes="auto">
+					</figure>
+					<section class="partner__primary">
+						<div class="partner__title">
+							<h3 class="partner__name">{{ person.title }}
+								{{ person.licensing }}</h3>
+							<p class="partner__email">{{ person.meta('role') }}</p>
+							<p class="partner__email">{{ person.email }}</p>
+						</div>
+						{% if person.bio %}
+							<button class="partner__toggle"></button>
+						</section>
+						<section class="partner__secondary">{{ person.meta('bio') }}</section>
+				{% else %}
+					</section>
+				{% endif %}
+			</article>
+		{% endfor %}
+		<div class="partners__spacer"></div>
+	</section>
+</section>{% endblock %}

@@ -1,0 +1,171 @@
+{% extends "base.twig" %}
+
+{% set page_class = "home" %}
+{% set optional_classes = "inverted no-padding" %}
+
+{% block content %}
+	<section class="home-carousel invert-nav glide">
+		<div class="glide__track" data-glide-el="track">
+			<div class="glide__slides">
+				{% for slide in post.meta('featured_projects_carousel') %}
+					<figure class="home-carousel__slide glide__slide">
+						{% if slide.video %}
+							<div class="home-carousel__video lazyload" data-ytbg-fade-in="true" data-vbg="{{ slide.video }}"></div>
+						{% else %}
+							<img class="home-carousel__image lazyload" src="{{ Image(slide.image).src|resize(300) }}" alt="{{ Image(slide.image).alt }}" data-src="{{ Image(slide.image).src }}" data-srcset="{{ Image(slide.image).srcset }}" data-sizes="auto">
+						{% endif %}
+						<figcaption class="home-carousel__caption">
+							<a href="{{ slide.project_link }}">
+								<p class="home-carousel__caption-title">{{ slide.title }}</p>
+								<p class="home-carousel__caption-description">{{ slide.subtitle }}</p>
+							</a>
+						</figcaption>
+						{# <div class="home-carousel__counter">{{ loop.index }}/{{ loop.length }}</div> #}
+					</figure>
+				{% endfor %}
+			</div>
+		</div>
+		{% if post.meta('featured_projects_carousel')|length > 1 %}
+			<div class="glide__arrows home-carousel__arrows" data-glide-el="controls">
+				<button class="glide__arrow glide__arrow--left home-carousel__arrow home-carousel__arrow--left" data-glide-dir="<">{{ source( directory ~ "/dist/img/arrow__left.svg") }}</button>
+				<button class="glide__arrow glide__arrow--right home-carousel__arrow home-carousel__arrow--right" data-glide-dir=">">{{ source( directory ~ "/dist/img/arrow__right.svg") }}</button>
+			</div>
+		{% endif %}
+	</section>
+
+	<section class="intro">
+		<h2 class="page__subtitle intro__title">{{ post.purpose_title }}</h2>
+		<div class="page__intro intro__description">{{ post.meta('purpose_description') }}</div>
+	</section>
+
+	<section class="project-categories__container">
+		<h2 class="page__subtitle">{{ post.projects_title }}</h2>
+		<div class="project-categories">
+			{% set culture_project = Post(post.meta('project_categories').culture_project) %}
+			<div class="project-category">
+				<h4 class="project-category__label">Culture</h4>
+				<a class="project-category__project" href="{{ culture_project.link }}">
+					<h3 class="project-category__title">{{ culture_project.title }}</h3>
+					<figure class="project-category__image">
+						<img class="lazyload" 
+						src="{{ culture_project.thumbnail.src|resize(300) }}" 
+						alt="{{ culture_project.thumbnail.alt }}" 
+						data-src="{{ culture_project.thumbnail.src|resize(600) }}" 
+						data-srcset="{{ culture_project.thumbnail.srcset }}" 
+						data-sizes="auto">
+						<figcaption class="project-category__caption">{{ culture_project.location }}</figcaption>
+					</figure>
+				</a>
+			</div>
+			{% set live_project = Post(post.meta('project_categories').live_project) %}
+			<div class="project-category">
+				<h4 class="project-category__label">Live</h4>
+				<a class="project-category__project" href="{{ live_project.link }}">
+					<h3 class="project-category__title">{{ live_project.title }}</h3>
+					<figure class="project-category__image">
+						<img class="lazyload" 
+						src="{{ live_project.thumbnail.src|resize(300) }}" 
+						alt="{{ live_project.thumbnail.alt }}" 
+						data-src="{{ live_project.thumbnail.src|resize(600) }}" 
+						data-srcset="{{ live_project.thumbnail.srcset }}" 
+						data-sizes="auto">
+						<figcaption class="project-category__caption">{{ live_project.location }}</figcaption>
+					</figure>
+				</a>
+			</div>
+			{% set learn_project = Post(post.meta('project_categories').learn_project) %}
+			<div class="project-category">
+				<h4 class="project-category__label">Learn</h4>
+				<a class="project-category__project" href="{{ learn_project.link }}">
+					<h3 class="project-category__title">{{ learn_project.title }}</h3>
+					<figure class="project-category__image">
+						<img class="lazyload" 
+						src="{{ learn_project.thumbnail.src|resize(300) }}" 
+						alt="{{ learn_project.thumbnail.alt }}" 
+						data-src="{{ learn_project.thumbnail.src|resize(600) }}" 
+						data-srcset="{{ learn_project.thumbnail.srcset }}" 
+						data-sizes="auto">
+						<figcaption class="project-category__caption">{{ learn_project.location }}</figcaption>
+					</figure>
+				</a>
+			</div>
+			{% set work_project = Post(post.meta('project_categories').work_project) %}
+			<div class="project-category">
+				<h4 class="project-category__label">Work</h4>
+				<a class="project-category__project" href="{{ work_project.link }}">
+					<h3 class="project-category__title">{{ work_project.title }}</h3>
+					<figure class="project-category__image">
+						<img class="lazyload" 
+						src="{{ work_project.thumbnail.src|resize(300) }}" 
+						alt="{{ work_project.thumbnail.alt }}" 
+						data-src="{{ work_project.thumbnail.src|resize(600) }}" 
+						data-srcset="{{ work_project.thumbnail.srcset }}" 
+						data-sizes="auto">
+						<figcaption class="project-category__caption">{{ work_project.location }}</figcaption>
+					</figure>
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<section class="highlights__container">
+		<h2 class="page__subtitle">{{ post.highlights_title }}</h2>
+		<div class="highlights">
+			<div class="highlight__spacer"></div>
+			{% for highlight in post.meta('highlights') %}
+				<article class="highlight highlight--{{ highlight.size|lower }}">
+
+					{% if highlight.acf_fc_layout == 'project' %}
+						{% set item = Post(highlight.project) %}
+						<h4 class="highlight__category">Project</h4>
+						<h3 class="highlight__title--alt">
+							<a href="{{ item.link }}">{{ item.title }}</a>
+						</h3>
+						{% if item.awards %}
+							<p class="highlight__description">{{ item.meta('awards')|join(' | ') }}</p>
+						{% endif %}
+						<p class="highlight__description">{{ item.location }}
+							|
+							{{ item.completion_date|date('Y') }}</p>
+						<img class="highlight__image lazyload" 
+						src="{{ item.thumbnail.src|resize(300) }}" 
+						alt="{{ item.thumbnail.alt }}" 
+						data-src="{{ item.thumbnail.src|resize(1200) }}" 
+						data-srcset="{{ item.thumbnail.srcset }}" 
+						data-sizes="auto">
+
+					{% elseif highlight.acf_fc_layout == 'award' %}
+						{% set item = Post(highlight.award) %}
+						<h4 class="highlight__category">Award</h4>
+						<h3 class="highlight__title">
+							<a href="{{ item.meta('projects')[0].link }}">{{ item.title }}</a>
+						</h3>
+						<p class="highlight__description">For the
+							<i>{{ item.meta('projects')[0].post_title }}</i>
+							project</p>
+						<p class="highlight__description">{{ item.meta('projects')[0].location }}
+							|
+							{{ item.meta('projects')[0].completion_date|date('Y') }}</p>
+
+					{% elseif highlight.acf_fc_layout == 'quote' %}
+						<h4 class="highlight__category">Quote</h4>
+						<figure class="highlight__quote-container">
+							<blockquote class="highlight__quote">{{ highlight.quote }}</blockquote>
+							<cite class="highlight__citation">— {{ highlight.citation }}</cite>
+						</figure>
+
+					{% elseif highlight.acf_fc_layout == 'press' %}
+						{% set item = Post(highlight.press) %}
+						<h4 class="highlight__category">Press</h4>
+						<h3 class="highlight__title">
+							<a href="{{ item.meta('link') }}">{{ item.title }}</a>
+						</h3>
+						<p class="highlight__description">{{ item.news_source }}</p>
+						<p class="highlight__description">{{ item.publish_date|date('F j, Y') }}</p>
+
+					{% endif %}
+				</article>
+			{% endfor %}
+		</div>
+	</section>
+{% endblock %}

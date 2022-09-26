@@ -1,0 +1,45 @@
+<footer id="footer" class="footer {{ footer_classes }}">
+	<div class="footer__address footer__column">{{ options.address_a }}</div>
+	<div class="footer__address footer__column">{{ options.address_b }}</div>
+	<div class="footer__contact footer__column">
+		<p class="footer__item">
+			<a class="footer__link" href="{{ options.contact_link.url }}">{{ options.contact_link.title }}</a>
+		</p>
+	</div>
+	<div class="footer__social footer__column">
+		<p class="footer__item">
+			<a class="footer__link" target="_blank" href="tel:{{ options.phone_number }}">{{ options.phone_number }}</a>
+		</p>
+		<p class="footer__item">
+			<a class="footer__link" target="_blank" href="mailto:{{ options.email }}">{{ options.email }}</a>
+		</p>
+		<p class="footer__item footer__social-icons">
+			{% if options.instagram_url %}
+				<a class="footer__link" target="_blank" href="{{ options.instagram_url }}">{{ source( directory ~ "/dist/img/icon__instagram.svg") }}</a>
+			{% endif %}
+			{% if options.youtube_url %}
+				<a class="footer__link" target="_blank" href="{{ options.youtube_url }}">{{ source( directory ~ "/dist/img/icon__youtube.svg") }}</a>
+			{% endif %}
+			{% if options.vimeo_url %}
+				<a class="footer__link" target="_blank" href="{{ options.vimeo_url }}">{{ source( directory ~ "/dist/img/icon__vimeo.svg") }}</a>
+			{% endif %}
+			{% if options.linkedin_url %}
+				<a class="footer__link" target="_blank" href="{{ options.linkedin_url }}">{{ source( directory ~ "/dist/img/icon__linkedin.svg") }}</a>
+			{% endif %}
+			{% if options.facebook_url %}
+				<a class="footer__link" target="_blank" href="{{ options.facebook_url }}">{{ source( directory ~ "/dist/img/icon__facebook.svg") }}</a>
+			{% endif %}
+			{% if options.twitter_url %}
+				<a class="footer__link" target="_blank" href="{{ options.twitter_url }}">{{ source( directory ~ "/dist/img/icon__twitter.svg") }}</a>
+			{% endif %}
+			{% if options.snapchat_url %}
+				<a class="footer__link" target="_blank" href="{{ options.snapchat_url }}">{{ source( directory ~ "/dist/img/icon__snapchat.svg") }}</a>
+			{% endif %}
+		</p>
+	</div>
+	<div class="footer__copyright">
+		<p class="footer__item">Copyright ©
+			{{"now"|date('Y')}}
+			Frederick Fisher and Partners. All rights reserved.</p>
+	</div>
+</footer>

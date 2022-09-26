@@ -1,0 +1,60 @@
+@use "../abstracts/variables";
+@use "../abstracts/type-styles";
+@use "../utilities/mixins";
+
+.opportunity {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    margin: var(--s-l);
+}
+
+.opportunity__information {
+    flex-basis: 100%;
+    margin-bottom: var(--s-l);
+}
+
+.opportunity__title {
+    flex-basis: 100%;
+}
+
+.opportunity__date {
+    flex-basis: 100%;
+
+    @extend %info-title;
+    color: var(--c-secondary);
+}
+
+.opportunity__contact {
+    flex-basis: 100%;
+    margin-top: var(--s-s);
+
+    a {
+        @extend %button;
+        color: var(--c-primary);
+        display: inline-block;
+    }
+}
+
+.opportunity__details {
+    columns: 1;
+
+    @include mixins.respond-above(variables.$break-m) {
+        columns: 2;
+    }
+}
+
+.opportunity__section {
+    // @include mixins.columns(6);
+    margin-right: var(--s-l);
+    margin-bottom: var(--s-l);
+    break-inside: avoid;
+}
+
+.opportunity__subtitle {
+    @extend %info-title;
+}
+
+.opportunity__description {
+    @extend %description;
+}
